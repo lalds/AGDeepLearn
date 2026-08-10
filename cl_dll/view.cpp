@@ -21,6 +21,7 @@
 #include "hltv.h"
 #include "Exports.h"
 #include "weapon_sway.h"
+#include "agent_api.h"
 
 
 #ifndef M_PI
@@ -1705,6 +1706,7 @@ void CL_DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
 	gHUD.m_Speedometer.UpdateSpeed(pparams->simvel);
 	gHUD.m_StrafeGuide.Update(pparams);
 	gHUD.m_Jumpspeed.UpdateSpeed(pparams->simvel);
+	AgentAPI_UpdateSimvel(pparams->simvel);
 
 	// intermission / finale rendering
 	if ( pparams->intermission )
@@ -1719,6 +1721,8 @@ void CL_DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
 	{
 		V_CalcNormalRefdef ( pparams );
 	}
+
+	AgentAPI_RenderCamera(pparams->vieworg, pparams->viewangles);
 
 	// Save view data for viewmodel renderer
 	g_vViewOrigin = pparams->vieworg;

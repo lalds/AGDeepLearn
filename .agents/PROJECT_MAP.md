@@ -11,11 +11,12 @@ This document serves as a comprehensive architectural map and technical guide fo
 
 ## 2. Directory Structure & Key Subsystems
 
-- **/cl_dll/**: The Client-side library (compiles to `client.so` on Linux, `client.dll` on Windows). This is where all user interface, input handling, custom rendering, and ImGui overlays reside.
+- **/cl_dll/**: The Client-side library (compiles to `client.so` on Linux, `client.dll` on Windows). Includes `agent_api.cpp` / `agent_api.h` for POSIX Shared Memory interface with AGDeepLearn.
 - **/dlls/**: The Server-side library (compiles to `hl.so`/`hl.dll`). Manages game rules, player logic, weapons physics, and server-side commands.
 - **/game_shared/** & **/pm_shared/**: Shared logic between client and server (movement prediction physics, weapon characteristics, player states).
 - **/external/**: External libraries compiled statically or linked (Dear ImGui, SDL2, Discord RPC, curl).
 - **/build/**: Active Linux compilation directory.
+- **/home/angel/AGDeepLearn/**: Companion Deep Learning / Reinforcement Learning repository (Python Gymnasium, Stable-Baselines3, PPO). Communicates with OpenAG's `agent_api` via POSIX Shared Memory (`/dev/shm/openag_agent_shm`).
 
 ---
 

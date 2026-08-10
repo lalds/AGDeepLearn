@@ -1,6 +1,8 @@
 add_subdirectory(hl)
 
 add_sources(
+	agent_api.cpp
+	agent_api.h
 	ammo.cpp
 	ammo.h
 	ammo_secondary.cpp

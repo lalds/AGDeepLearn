@@ -26,6 +26,7 @@ extern "C"
 #include "vgui_TeamFortressViewport.h"
 
 #include "discord_integration.h"
+#include "agent_api.h"
 
 
 extern int g_iAlive;
@@ -846,6 +847,18 @@ void CL_DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int ac
 	else
 	{
 		VectorCopy( oldangles, cmd->viewangles );
+	}
+
+	AgentAPI_UpdateObservation();
+	AgentAPI_ApplyAction(cmd, (float*)viewangles);
+	if (g_iAlive)
+	{
+		gEngfuncs.SetViewAngles((float*)viewangles);
+		if (!cl_agent_cam || cl_agent_cam->value == 0.0f)
+		{
+			VectorCopy(viewangles, cmd->viewangles);
+		}
+		VectorCopy(viewangles, oldangles);
 	}
 
 	Bench_SetViewAngles( 1, (float *)&cmd->viewangles, frametime, cmd );

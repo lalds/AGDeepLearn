@@ -64,6 +64,7 @@ IGameUI *g_pGameUI = nullptr;
 
 #include "discord_integration.h"
 #include "update_checker.h"
+#include "agent_api.h"
 
 void CL_LoadParticleMan( void );
 void CL_UnloadParticleMan( void );
@@ -251,6 +252,7 @@ void CL_DLLEXPORT HUD_Init( void )
 	gHUD.Init();
 	Scheme_Init();
 	ImGuiHelper_Init();
+	AgentAPI_RegisterCvar();
 }
 
 

@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//========= Copyright Â© 1996-2002, Valve LLC, All rights reserved. ============
 //
 // Purpose: 
 //
@@ -596,9 +596,14 @@ void CAM_EndDistance(void)
    iMouseInUse=0;
 }
 
+extern cvar_t* cl_agent_cam;
+
 int CL_DLLEXPORT CL_IsThirdPerson( void )
 {
 //	RecClCL_IsThirdPerson();
+
+	if (cl_agent_cam && cl_agent_cam->value > 0.0f)
+		return 1;
 
 	if (gEngfuncs.pDemoAPI->IsPlayingback() && gEngfuncs.IsSpectateOnly() && g_iUser1 != OBS_IN_EYE)
 		return 1;

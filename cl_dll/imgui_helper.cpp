@@ -13,6 +13,7 @@
 #include "ammohistory.h"
 #include "gameui.h"
 #include "hud_servers_priv.h"
+#include "agent_api.h"
 
 extern CHudServers *g_pServers;
 
@@ -725,6 +726,8 @@ void ImGuiHelper_Draw()
 		}
 	}
 
+	AgentAPI_RenderHUD();
+
 	if (g_ShowImGuiMenu)
 	{
 		ImGui::SetNextWindowSize(ImVec2(500, 350), ImGuiCond_FirstUseEver);
@@ -948,6 +951,13 @@ void ImGuiHelper_Draw()
 			if (ImGui::Checkbox("Custom ImGui Menus", &customMenuVal))
 			{
 				gEngfuncs.Cvar_SetValue("cl_custom_menu", customMenuVal ? 1.0f : 0.0f);
+			}
+
+			cvar_t* pAgentApi = gEngfuncs.pfnGetCvarPointer("cl_agent_api");
+			bool agentApiVal = pAgentApi ? (pAgentApi->value != 0.0f) : false;
+			if (ImGui::Checkbox("AI Agent API (Shared Memory)", &agentApiVal))
+			{
+				gEngfuncs.Cvar_SetValue("cl_agent_api", agentApiVal ? 1.0f : 0.0f);
 			}
 
 			ImGui::Separator();
