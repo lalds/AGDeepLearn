@@ -1,3 +1,5 @@
+.agents/
+.gemini/
 /.agents
 /.gemini
 .vscode
